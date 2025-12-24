@@ -27,7 +27,7 @@ public class ProductService {
 
     @Transactional(readOnly = true)
     public Page<ResponseProductMinDto> findProducts(String name, String brand, Category category, Pageable pageable) {
-        Page<Product> products = productRepository.findAll(pageable);// findProducts(name, brand, category, pageable);
+        final Page<Product> products = productRepository.findProducts(name, brand, category, pageable);
 
         return products.map(ResponseProductMinDto::new);
     }
