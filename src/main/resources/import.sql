@@ -1,0 +1,5 @@
+insert into tb_product(name,brand,price,category,created_at,bar_code) values('Brahma lata 350ml','Ambev',5.0,'BEBIDAS_ALCOOLICAS ','2025-12-23T10:00:00', '123456789');
+insert into tb_product(name,brand,price,category,created_at,bar_code) values('Skol lata 350ml','Ambev',4.5,'BEBIDAS_ALCOOLICAS','2025-12-23T10:00:00', '987654321');
+insert into tb_product(name,brand,price,category,created_at,bar_code) values('Coca-Cola 2L','Coca-Cola',8.0,'REFRIGERANTES','2025-12-23T11:00:00', '111111111');
+insert into tb_product(name,brand,price,category,created_at,bar_code) values('Fanta Laranja 1.5L','Coca-Cola',6.5,'REFRIGERANTES','2025-12-23T12:00:00', '222222222');
+insert into tb_product(name,brand,price,category,created_at,bar_code) values('Heineken lata 350ml','Heineken',7.0,'BEBIDAS_ALCOOLICAS','2025-12-23T13:00:00', '333333333');

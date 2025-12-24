@@ -1,0 +1,39 @@
+@baseUrl = http://localhost:8080/api/v1
+### Get all products
+GET {{baseUrl}}/product
+    Accept: application/json
+
+### Get product by ID
+GET {{baseUrl}}/product/300
+    Accept: application/json
+
+### Create a new product
+POST {{baseUrl}}/product
+    Content-Type: application/json
+    Accept: application/json
+
+
+{
+    "name": "Chocolate Barra Lacta",
+    "barCode": "12345678912",
+    "price": 8.99,
+    "category": "DOCES",
+    "brand": "Lacta"
+}
+
+### Update an existing product
+PUT {{baseUrl}}/product/300
+    Content-Type: application/json
+    Accept: application/json
+
+
+{
+    "name": "Chocolate Barra Lacta 200g",
+    "barCode": "12345678912",
+    "price": 10.99,
+    "category": "DOCES",
+    "brand": "Lacta"
+}
+### Delete a product
+DELETE {{baseUrl}}/product/300
+    Accept: application/json
