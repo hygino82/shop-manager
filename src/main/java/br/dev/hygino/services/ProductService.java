@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.dev.hygino.dto.RequestProductDto;
+import br.dev.hygino.dto.RequestProdutPriceUpdateDto;
 import br.dev.hygino.dto.ResponseProductDetailsDto;
 import br.dev.hygino.dto.ResponseProductMinDto;
 import br.dev.hygino.models.Category;
@@ -57,6 +58,22 @@ public class ProductService {
             dtoToEntity(dto, product);
             product.setUpdatedAt(LocalDateTime.now());
             product = productRepository.save(product);
+            
+            return new ResponseProductDetailsDto(product);
+        } catch (EntityNotFoundException | ObjectRetrievalFailureException e) {
+            throw new ResourceNotFoundException("Product not found");
+        }
+    }
+
+    @Transactional
+    public ResponseProductDetailsDto updateProductPrice(RequestProdutPriceUpdateDto dto) {
+        try {
+            Product product = productRepository.getReferenceById(dto.productId());
+
+            product.setPrice(dto.price());
+            product.setUpdatedAt(LocalDateTime.now());
+            product = productRepository.save(product);
+
             return new ResponseProductDetailsDto(product);
         } catch (EntityNotFoundException | ObjectRetrievalFailureException e) {
             throw new ResourceNotFoundException("Product not found");
