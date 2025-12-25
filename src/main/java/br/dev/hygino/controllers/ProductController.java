@@ -54,7 +54,7 @@ public class ProductController {
 
     @PutMapping("/{id}")
     public ResponseEntity<ResponseProductDetailsDto> updateProduct(@PathVariable Long id,
-            @RequestBody RequestProductDto dto) {
+                                                                   @RequestBody RequestProductDto dto) {
         return ResponseEntity.ok(productService.updateProduct(id, dto));
     }
 
@@ -68,5 +68,11 @@ public class ProductController {
     public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
         productService.deleteProduct(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("barcode/{barcode}")
+    public ResponseEntity<ResponseProductDetailsDto> findProductByBarCode(@PathVariable String barcode) {
+        ResponseProductDetailsDto dto = productService.findProductByBarCode(barcode);
+        return ResponseEntity.ok(dto);
     }
 }

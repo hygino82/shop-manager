@@ -37,6 +37,7 @@ class ProductServiceTest {
     private long validId, invalidId;
     private AutoCloseable closeable;
     private Pageable pageable;
+    private String validBarcode, invalidBarcode;
 
     @BeforeEach
     void setup() {
@@ -47,6 +48,8 @@ class ProductServiceTest {
         validId = 1L;
         invalidId = 1000L;
         pageable = PageRequest.of(0, 10);
+        validBarcode = "123456789";
+        invalidBarcode = "94773007";
 
         final List<Product> productList = ProductFactory.createProductList();
         final List<Product> beerList = ProductFactory.createBeerProductList();
@@ -73,6 +76,9 @@ class ProductServiceTest {
 
         when(productRepository.findProducts("", "", null, pageable))
                 .thenReturn(productPage);
+
+        when(productRepository.findProductByBarCode(validBarcode)).thenReturn(Optional.of(validProduct));
+        when(productRepository.findProductByBarCode(invalidBarcode)).thenReturn(Optional.empty());
     }
 
     @AfterEach
@@ -112,5 +118,23 @@ class ProductServiceTest {
         final var result = productService.findProducts("", "", null, pageable);
         assertNotNull(result);
         assertEquals(5, result.getContent().size());
+    }
+
+    @Test
+    @DisplayName("Deve retornar um ResponseProductDetailsDto quando o código de barras for válido")
+    void findProductByBarCodeShouldReturnResponseProductDetailsDtoWhenIdIsValid() {
+        // Act (Ação)
+        final var result = productService.findProductByBarCode(validBarcode);
+
+        // Assert (Verificação)
+        assertEquals(validId, result.id());
+    }
+
+    @Test
+    @DisplayName("Deve lançar ProductNotFoundException quando o código de barras for inválido")
+    void findProductByBarCodeShouldThrowProductNotFoundExceptionWhenIdIsInvalid() {
+        final ProductNotFoundException result = assertThrows(ProductNotFoundException.class,
+                () -> productService.findProductByBarCode(invalidBarcode));
+        assertEquals("Product not found", result.getMessage());
     }
 }

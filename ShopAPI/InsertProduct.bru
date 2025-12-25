@@ -1,0 +1,26 @@
+meta {
+  name: InsertProduct
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{host}}/product
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "name": "Chocolate Barra Lacta",
+    "barCode": "12345678912",
+    "price": 8.99,
+    "category": "DOCES",
+    "brand": "Lacta"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

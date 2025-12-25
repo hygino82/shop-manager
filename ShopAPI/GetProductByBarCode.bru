@@ -1,0 +1,16 @@
+meta {
+  name: GetProductByBarCode
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{host}}/product/barcode/123456789
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

@@ -58,7 +58,7 @@ public class ProductService {
             dtoToEntity(dto, product);
             product.setUpdatedAt(LocalDateTime.now());
             product = productRepository.save(product);
-            
+
             return new ResponseProductDetailsDto(product);
         } catch (EntityNotFoundException | ObjectRetrievalFailureException e) {
             throw new ResourceNotFoundException("Product not found");
@@ -93,5 +93,13 @@ public class ProductService {
         product.setBarCode(dto.barCode());
         product.setPrice(dto.price());
         product.setCategory(dto.category());
+    }
+
+    @Transactional(readOnly = true)
+    public ResponseProductDetailsDto findProductByBarCode(String barcode) {
+        Product product = productRepository.findProductByBarCode(barcode)
+                .orElseThrow(() -> new ProductNotFoundException("Product not found"));
+
+        return new ResponseProductDetailsDto(product);
     }
 }

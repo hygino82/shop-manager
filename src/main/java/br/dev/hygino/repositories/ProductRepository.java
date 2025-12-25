@@ -9,6 +9,8 @@ import org.springframework.data.repository.query.Param;
 import br.dev.hygino.models.Category;
 import br.dev.hygino.models.Product;
 
+import java.util.Optional;
+
 public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("""
             SELECT p FROM Product p
@@ -17,7 +19,10 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             AND (:category IS NULL OR p.category = :category)
             """)
     Page<Product> findProducts(@Param("name") String name,
-            @Param("brand") String brand,
-            @Param("category") Category category,
-            Pageable pageable);
+                               @Param("brand") String brand,
+                               @Param("category") Category category,
+                               Pageable pageable);
+
+    @Query("SELECT obj FROM Product obj WHERE obj.barCode = :barcode")
+    Optional<Product> findProductByBarCode(String barcode);
 }
