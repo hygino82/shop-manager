@@ -1,0 +1,20 @@
+meta {
+  name: GetProducts
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{host}}/product?category=BEBIDAS_ALCOOLICAS
+  body: none
+  auth: inherit
+}
+
+params:query {
+  category: BEBIDAS_ALCOOLICAS
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

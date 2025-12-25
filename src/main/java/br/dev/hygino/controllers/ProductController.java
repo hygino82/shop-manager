@@ -28,10 +28,12 @@ public class ProductController {
 
     @GetMapping
     public ResponseEntity<Page<ResponseProductMinDto>> findProducts(
-            @RequestParam(required = false) String name,
-            @RequestParam(required = false) String brand,
-            @RequestParam(required = false) Category category,
+            @RequestParam(required = false, defaultValue = "") String name,
+            @RequestParam(required = false, defaultValue = "") String brand,
+            @RequestParam(required = false, defaultValue = "") Category category,
             Pageable pageable) {
+
+
         Page<ResponseProductMinDto> page = productService.findProducts(name, brand, category, pageable);
         return ResponseEntity.ok(page);
     }
